@@ -147,7 +147,7 @@ const CreateProduct = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center mb-8'>
+    <div className='flex flex-col items-center justify-center mb-8 px-8'>
       <Card>
         <h1 className='font-semibold text-xl text-center'>
           Create a new product

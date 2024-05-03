@@ -51,7 +51,7 @@ const Product = () => {
   if (isError) return <h1>Error: {(error as Error).message}</h1>
 
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex items-center justify-center px-8 pb-8'>
       <Card className='flex items-center justify-center flex-col gap-4'>
         <div className='flex gap-4'>
           <h1 className='font-semibold'>{product?.data?.data.name}</h1>

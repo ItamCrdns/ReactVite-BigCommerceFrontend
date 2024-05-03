@@ -69,7 +69,7 @@ const ProductsTableRow = ({ product }: { product: Product }) => {
           </Link>
         )}
       </TableCell>
-      <TableCell className='w-[200px]'>
+      <TableCell className='w-[200px] hidden lg:table-cell'>
         {editMode.edit ? (
           <TextInput
             defaultValue={newProduct.sku}
@@ -92,7 +92,7 @@ const ProductsTableRow = ({ product }: { product: Product }) => {
           product.sku
         )}
       </TableCell>
-      <TableCell className='w-[200px]'>
+      <TableCell className='w-[200px] hidden md:table-cell'>
         {editMode.edit ? (
           <TextInput
             defaultValue={newProduct.price.toString()}
@@ -118,7 +118,7 @@ const ProductsTableRow = ({ product }: { product: Product }) => {
           product.price
         )}
       </TableCell>
-      <TableCell className='w-[200px]'>
+      <TableCell className='w-[200px] hidden xl:table-cell'>
         {editMode.edit ? (
           <NumberInput
             defaultValue={newProduct.weight.toString()}
@@ -150,7 +150,7 @@ const ProductsTableRow = ({ product }: { product: Product }) => {
           `${product.weight}kg`
         )}
       </TableCell>
-      <TableCell className='w-[200px]'>
+      <TableCell className='w-[200px] hidden sm:table-cell'>
         {editMode.edit ? (
           <Select
             defaultValue={newProduct.type === 'physical' ? '1' : '2'}
@@ -169,7 +169,7 @@ const ProductsTableRow = ({ product }: { product: Product }) => {
           <span className='capitalize'>{product.type}</span>
         )}
       </TableCell>
-      <TableCell className='w-[200px]'>
+      <TableCell className='w-[200px] hidden md:table-cell'>
         {editMode.edit ? (
           <NumberInput
             defaultValue={newProduct.inventory_level.toString()}
@@ -209,7 +209,7 @@ const ProductsTableRow = ({ product }: { product: Product }) => {
           product.inventory_level
         )}
       </TableCell>
-      <TableCell className='w-[200px]'>
+      <TableCell className='w-[200px] hidden lg:table-cell'>
         <Link className='font-semibold' href={`/brands/${product.brand_id}`}>
           {product.brand_id}
         </Link>

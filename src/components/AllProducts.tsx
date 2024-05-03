@@ -46,18 +46,30 @@ const AllProducts = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center mb-8'>
+    <div className='flex flex-col items-center justify-center mb-8 px-8 2xl:w-3/4 w-full sm'>
       <Card>
         <Table>
           <TableHead>
             <TableRow>
               <TableHeaderCell>Name</TableHeaderCell>
-              <TableHeaderCell>SKU</TableHeaderCell>
-              <TableHeaderCell>Price</TableHeaderCell>
-              <TableHeaderCell>Weight</TableHeaderCell>
-              <TableHeaderCell>Type</TableHeaderCell>
-              <TableHeaderCell>Inventory</TableHeaderCell>
-              <TableHeaderCell>Brand</TableHeaderCell>
+              <TableHeaderCell className='hidden lg:table-cell'>
+                SKU
+              </TableHeaderCell>
+              <TableHeaderCell className='hidden md:table-cell'>
+                Price
+              </TableHeaderCell>
+              <TableHeaderCell className='hidden xl:table-cell'>
+                Weight
+              </TableHeaderCell>
+              <TableHeaderCell className='hidden sm:table-cell'>
+                Type
+              </TableHeaderCell>
+              <TableHeaderCell className='hidden md:table-cell'>
+                Inventory
+              </TableHeaderCell>
+              <TableHeaderCell className='hidden lg:table-cell'>
+                Brand
+              </TableHeaderCell>
               <TableHeaderCell>Actions</TableHeaderCell>
             </TableRow>
           </TableHead>
