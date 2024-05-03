@@ -10,6 +10,9 @@
 			"a11y": {
 				"useKeyWithClickEvents":"off",
 				"useKeyWithMouseEvents":"off"
+			},
+			"suspicious": {
+				"noRedeclare":"off"
 			}
 		}
 	},
@@ -21,6 +24,7 @@
 			"quoteStyle": "single",
 			"indentStyle": "space",
 			"indentWidth": 2
+			
 		}
 	}
 }

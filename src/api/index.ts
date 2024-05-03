@@ -186,3 +186,30 @@ export const loginUser = async ({
 
   return await res.json()
 }
+
+export const addImageToProduct = async ({
+  productId,
+  picture
+}: { productId: number; picture: File }): Promise<
+  OperationResult<MetaData<Image>>
+> => {
+  const formData = new FormData()
+  formData.append('image', picture)
+
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/products/${productId}/images`,
+    {
+      method: 'POST',
+      credentials: 'include',
+      body: formData
+    }
+  )
+
+  const data: OperationResult<MetaData<Image>> = await res.json()
+
+  if (!res.ok) {
+    throw new Error(data.message)
+  }
+
+  return data
+}

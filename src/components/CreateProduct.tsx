@@ -11,9 +11,14 @@ import { useWarnings } from '../hooks/useWarnings'
 import { createProduct } from '../api'
 import type { Product } from '../types/Product.interface'
 import { useMutation, useQueryClient } from 'react-query'
+import { ImageUploadCard } from './ImageUploadCard'
+import { useImagePreview } from '../hooks/useImagePreview'
+import { useAddImageToProduct } from '../hooks/useAddImageToProduct'
 
 const CreateProduct = () => {
-  const [selectedType, setSelectedType] = useState<string>('physical')
+  const [selectedType, setSelectedType] = useState('physical')
+  const { image, picturePreview, inputRef, updateImageToUpload } =
+    useImagePreview()
 
   const { warnings, handleSetWarning, handleFilterWarning } = useWarnings()
 
@@ -98,10 +103,23 @@ const CreateProduct = () => {
   const { isLoading, isError, error, mutate, isSuccess } = useMutation({
     mutationKey: ['createProduct', selectedType],
     mutationFn: createProductCallback,
-    onSuccess: () => {
+    onSuccess: (res) => {
+      const newProductId = res.data?.data.id as number
       queryClient.invalidateQueries('products')
+
+      if (image !== null && newProductId !== 0) {
+        mutateImage({ productId: newProductId, picture: image })
+      }
     }
   })
+
+  const {
+    isLoading: isLoadingImage,
+    isError: isErrorImage,
+    error: errorImage,
+    mutate: mutateImage,
+    isSuccess: isSuccessImage
+  } = useAddImageToProduct()
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -118,6 +136,11 @@ const CreateProduct = () => {
           <p className='text-xs text-center'>
             Your product has been successfully created
           </p>
+          {isSuccessImage && (
+            <p className='text-xs text-center'>
+              Your product image has been successfully uploaded
+            </p>
+          )}
         </Card>
       </div>
     )
@@ -182,17 +205,41 @@ const CreateProduct = () => {
             error={warnings.some((w) => w.field === 'brand_name')}
             errorMessage='Brand name is required'
           />
-          <input type='submit' className='hidden' />
+          <input
+            ref={inputRef}
+            type='file'
+            accept='image/*'
+            hidden
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              const file = e.target.files?.[0]
+              if (file !== undefined) {
+                updateImageToUpload(file)
+              }
+            }}
+          />
+          <ImageUploadCard
+            picturePreview={picturePreview}
+            inputRef={inputRef}
+          />
           <div className='flex self-center justify-center text-center'>
             <Button type='submit'>Submit</Button>
           </div>
-
           {isLoading && <p className='text-center'>Creating product...</p>}
+          {isLoadingImage && <p className='text-center'>Uploading image...</p>}
           {isError && (
             <div className='flex justify-center items-center'>
               <div className='w-[250px] flex justify-center items-center'>
                 <p className='text-red-500 text-center'>
                   {(error as Error)?.message}
+                </p>
+              </div>
+            </div>
+          )}
+          {isErrorImage && (
+            <div className='flex justify-center items-center'>
+              <div className='w-[250px] flex justify-center items-center'>
+                <p className='text-red-500 text-center'>
+                  {(errorImage as Error)?.message}
                 </p>
               </div>
             </div>
